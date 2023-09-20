@@ -1,5 +1,7 @@
 package com.elikill58.negativity.spigot.impl.inventory;
 
+import com.elikill58.negativity.api.entity.Player;
+import com.elikill58.negativity.universal.Scheduler;
 import org.bukkit.Bukkit;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
@@ -10,22 +12,26 @@ import com.elikill58.negativity.api.inventory.PlatformHolder;
 import com.elikill58.negativity.api.item.ItemStack;
 import com.elikill58.negativity.api.item.Material;
 import com.elikill58.negativity.spigot.impl.item.SpigotItemStack;
+import com.elikill58.negativity.api.NegativityPlayer;
 
 public class SpigotInventory extends Inventory {
 
 	private final String inventoryName;
 	private final int size;
-	private final SpigotNegativityHolder holder;
-	private final org.bukkit.inventory.Inventory inv;
+	private SpigotNegativityHolder holder;
+	private org.bukkit.inventory.Inventory inv;
 	
 	public SpigotInventory(org.bukkit.inventory.Inventory inv) {
 		this.inventoryName = "";
 		this.size = inv.getSize();
-		if(inv.getHolder() instanceof SpigotNegativityHolder) {
-			this.holder = (SpigotNegativityHolder) inv.getHolder();
-		} else
-			this.holder = (inv.getHolder() == null ? null : new SpigotNegativityHolder(new SpigotInventoryHolder(inv.getHolder())));
-		this.inv = inv;
+		Player p = NegativityPlayer.getPlayer();
+		Scheduler.getInstance().runEntity(p, () -> {
+			if (inv.getHolder() instanceof SpigotNegativityHolder) {
+				this.holder = (SpigotNegativityHolder) inv.getHolder();
+			} else
+				this.holder = (inv.getHolder() == null ? null : new SpigotNegativityHolder(new SpigotInventoryHolder(inv.getHolder())));
+			this.inv = inv;
+		});
 	}
 	
 	public SpigotInventory(String inventoryName, int size, NegativityHolder holder) {

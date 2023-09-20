@@ -56,7 +56,7 @@ public class NegativityPlayer {
 	private static final Map<UUID, Player> PLAYERS = Collections.synchronizedMap(new ConcurrentHashMap<UUID, Player>());
 
 	private final UUID playerId;
-	private final Player p;
+	private static Player p;
 
 	public ArrayList<CheckProcessor> checkProcessors = new ArrayList<>();
 	public HashMap<CheatKeys, List<PlayerCheatAlertEvent>> alertNotShowed = new HashMap<>();
@@ -97,7 +97,7 @@ public class NegativityPlayer {
 	private @Nullable ScheduledTask fightCooldownTask;
 
 	public NegativityPlayer(Player p) {
-		this.p = p;
+		NegativityPlayer.p = p;
 		this.playerId = p.getUniqueId();
 		this.loginTime = System.currentTimeMillis();
 		this.clientName = "Not loaded";
@@ -283,7 +283,7 @@ public class NegativityPlayer {
 	 * 
 	 * @return the player
 	 */
-	public Player getPlayer() {
+	public static Player getPlayer() {
 		return p;
 	}
 
