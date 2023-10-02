@@ -19,6 +19,7 @@ import com.elikill58.negativity.common.server.ProxyEventsManager;
 import com.elikill58.negativity.universal.Adapter;
 import com.elikill58.negativity.universal.monitor.MonitorType;
 import com.elikill58.negativity.universal.monitor.cpu.CpuMeasure;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class EventManager {
 
@@ -143,8 +144,7 @@ public class EventManager {
 	 */
 	public static void callEvent(Event ev) {
 		CpuMeasure cpuMeasure = MonitorType.CPU.getMonitor().getMeasure(ev);
-		HashMap<ListenerCaller, EventListener> allMethods = new HashMap<>();
-		allMethods.putAll(getEventForClass(ev, ev.getClass()));
+		ConcurrentHashMap<ListenerCaller, EventListener> allMethods = new ConcurrentHashMap<>(getEventForClass(ev, ev.getClass()));
 		Class<?> superClass = ev.getClass().getSuperclass();
 		while(superClass != Object.class) {
 			allMethods.putAll(getEventForClass(ev, superClass));
