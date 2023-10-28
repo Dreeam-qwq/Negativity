@@ -18,7 +18,7 @@ dependencies {
     api(project(':spigot'))
     compileOnly(project(path: ':spigot', configuration: 'spigot'))
 
-    java11CompileOnly 'me.coralise:custombansplus:3.4.1'
+    java11CompileOnly 'me.coralise:custombansplus:3.4.1' // Dreeam TODO - need bump to 3.6?
 
 }
 

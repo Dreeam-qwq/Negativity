@@ -2,7 +2,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
     id 'java-library'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 shadowJar {
@@ -41,6 +41,10 @@ subprojects {
     repositories {
         mavenCentral()
         maven {
+            name = "PaperMC"
+            url = "https://repo.papermc.io/repository/maven-public/"
+        }
+        maven {
             name 'jitpack'
             url 'https://jitpack.io/'
         }
@@ -60,13 +64,17 @@ subprojects {
             name = "ViaVersion"
             url = "https://repo.viaversion.com"
         }
+        maven {
+            name = "sonatype-oss-snapshots1"
+            url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+        }
     }
 
     dependencies {
         compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
-        compileOnly 'org.checkerframework:checker-qual:3.7.0'
+        compileOnly 'org.checkerframework:checker-qual:3.39.0'
     
-        compileOnly 'io.netty:netty-all:4.1.85.Final'
+        compileOnly 'io.netty:netty-all:4.1.100.Final'
     }
 
     java.toolchain.languageVersion = JavaLanguageVersion.of(8)

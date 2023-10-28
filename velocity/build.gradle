@@ -15,14 +15,14 @@ sourceSets {
 
 repositories {
     maven {
-        name 'velocity'
-        url 'https://nexus.velocitypowered.com/repository/maven-public/'
+        name 'papermc'
+        url 'https://repo.papermc.io/repository/maven-public/'
     }
 }
 
 dependencies {
     api project(':common')
-    compileOnly 'com.velocitypowered:velocity-api:3.0.0'
+    compileOnly 'com.velocitypowered:velocity-api:3.2.0-SNAPSHOT'
 }
 
 processResources {
@@ -32,6 +32,12 @@ processResources {
     filesNotMatching('META-INF/services/*') {
         expand(props)
     }
+}
+
+compileJava {
+    javaCompiler.set(
+            javaToolchains.compilerFor { languageVersion = JavaLanguageVersion.of(11) }
+    )
 }
 
 shadowJar {

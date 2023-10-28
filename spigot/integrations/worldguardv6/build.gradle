@@ -19,8 +19,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'com.sk89q:worldguard:6.1'
-    compileOnly 'com.sk89q.worldedit:worldedit-core:6.1.1-SNAPSHOT'
+    compileOnly 'com.sk89q.worldguard:worldguard-legacy:6.2'
+    compileOnly 'com.sk89q.worldedit:worldedit-core:6.1.4-SNAPSHOT'
     api(project(':spigot'))
     compileOnly(project(path: ':spigot', configuration: 'spigot'))
 }

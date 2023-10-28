@@ -18,13 +18,13 @@ configurations {
 repositories {
     maven {
         name 'geyser'
-        url 'https://repo.opencollab.dev/maven-snapshots/'
+        url 'https://repo.opencollab.dev/main/'
     }
 }
 
 dependencies {
-    compileOnly 'org.geysermc:GeyserMC:2.1.0-SNAPSHOT'
-    compileOnly 'org.geysermc.floodgate:api:2.2.0-SNAPSHOT'
+    compileOnly 'org.geysermc:core:2.0.7-SNAPSHOT'
+    compileOnly 'org.geysermc.floodgate:api:2.2.2-SNAPSHOT'
     api(project(':common'))
 }
 

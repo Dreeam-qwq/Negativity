@@ -3,7 +3,7 @@ package com.elikill58.negativity.bungee;
 import java.io.File;
 import java.util.UUID;
 
-import org.bstats.bungeecord.MetricsLite;
+import org.bstats.bungeecord.Metrics;
 
 import com.elikill58.negativity.bungee.integrations.RedisSupport;
 import com.elikill58.negativity.universal.Adapter;
@@ -38,7 +38,7 @@ public class BungeeNegativity extends Plugin {
 	public void onEnable() {
 		Adapter.setAdapter(new BungeeAdapter(this));
 
-		new MetricsLite(this, 3510);
+		new Metrics(this, 3510);
 
 		getProxy().registerChannel(NegativityMessagesManager.CHANNEL_ID);
 		PluginManager pluginManager = getProxy().getPluginManager();
