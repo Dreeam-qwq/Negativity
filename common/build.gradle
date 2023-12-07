@@ -17,7 +17,7 @@ sourceSets {
 
 dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.1")
     implementation "org.yaml:snakeyaml:2.2"
     implementation "com.viaversion:nbt:3.0.0"
     implementation "it.unimi.dsi:fastutil:8.5.12"
