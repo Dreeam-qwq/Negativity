@@ -6,6 +6,6 @@ sourceSets {
 }
 
 dependencies {
-    compileOnly 'com.gitlab.ruany:LiteBansAPI:0.3.4'
+    compileOnly 'com.gitlab.ruany:LiteBansAPI:0.4.1'
     api(project(':common'))
 }

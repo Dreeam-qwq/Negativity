@@ -19,7 +19,13 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.0'
+    compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.1.0-SNAPSHOT'
     api(project(':spigot'))
     compileOnly(project(path: ':spigot', configuration: 'spigot'))
+}
+
+compileJava {
+    javaCompiler.set(
+            javaToolchains.compilerFor { languageVersion = JavaLanguageVersion.of(17) }
+    )
 }

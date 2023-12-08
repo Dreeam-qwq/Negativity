@@ -16,11 +16,11 @@ sourceSets {
 }
 
 dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
-    implementation "org.yaml:snakeyaml:2.0"
-    implementation "com.viaversion:opennbt:2.1"
-    implementation "it.unimi.dsi:fastutil:8.5.6"
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.1")
+    implementation "org.yaml:snakeyaml:2.2"
+    implementation "com.viaversion:opennbt:2.1" // Dreeam TODO - Don't compatible with the latest "com.viaversion:nbt:3.0.0"
+    implementation "it.unimi.dsi:fastutil:8.5.12"
 }
 
 shadowJar {
