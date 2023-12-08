@@ -38,7 +38,7 @@ configurations {
 dependencies {
     api project(':common')
     compileOnly 'com.comphenix.protocol:ProtocolLib:5.1.0'
-    spigot 'org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT'
+    spigot 'org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT'
 }
 
 processResources {
