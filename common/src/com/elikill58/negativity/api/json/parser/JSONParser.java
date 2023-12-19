@@ -257,7 +257,7 @@ public class JSONParser {
 			}while(token.type!=Yytoken.TYPE_EOF);
 		}
 		catch(IOException ie){
-			throw ie;
+			ie.printStackTrace();
 		}
 		
 		throw new ParseException(getPosition(), ParseException.ERROR_UNEXPECTED_TOKEN, token);

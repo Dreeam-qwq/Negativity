@@ -36,7 +36,7 @@ public class NPacketPlayOutMultiBlockChange implements NPacketPlayOut {
 				long val = serializer.readVarLong();
 				long blockStateId = val >> 12;
 				int x = (int) ((chunkX << 4) + (val >>> 8 & 0xF));
-				int y = (int) ((chunkY << 4) + (val >>> 0 & 0xF));
+				int y = (int) ((chunkY << 4) + (val & 0xF));
 				int z = (int) ((chunkZ << 4) + (val >>> 4 & 0xF));
 				blockStates.put(new BlockPosition(x, y, z), version.getNamedVersion().getMaterial((int) blockStateId));
 			}

@@ -147,7 +147,7 @@ public class LiteBansProcessor implements BanProcessor, WarnProcessor {
 		try {
 			String sender;
 			if (UniversalUtils.isUUID(warn.getWarnedBy())) {
-				sender = "--sender-uuid=" + warn.getWarnedBy().toString();
+				sender = "--sender-uuid=" + warn.getWarnedBy();
 			} else {
 				sender = "--sender=" + warn.getWarnedBy();
 			}

@@ -58,7 +58,6 @@ permissions:
       negativity.mod: true
       negativity.verif: true
       negativity.alert: true
-      negativity.mod: true
       negativity.managecheat: true
       negativity.reportwait: true
       negativity.warn: true

@@ -320,7 +320,7 @@ public class Expression {
 	 */
 	public Expression(String expressionString) {
 		expressionInit();
-		this.expressionString = new String(expressionString);
+		this.expressionString = expressionString;
 		setExpressionModifiedFlag();
 	}
 
@@ -369,8 +369,8 @@ public class Expression {
 	 *            the base expression
 	 */
 	private Expression(Expression expression) {
-		expressionString = new String(expression.expressionString);
-		description = new String(expression.description);
+		expressionString = expression.expressionString;
+		description = expression.description;
 		keyWordsList = expression.keyWordsList;
 		relatedExpressionsList = expression.relatedExpressionsList;
 		computingTime = 0;
