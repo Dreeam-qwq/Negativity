@@ -11,6 +11,8 @@ import org.bukkit.plugin.Plugin;
 import com.elikill58.negativity.api.packets.nms.channels.netty.NettyPacketListener;
 import com.elikill58.negativity.spigot.impl.entity.SpigotEntityManager;
 import com.elikill58.negativity.spigot.nms.SpigotVersionAdapter;
+import com.elikill58.negativity.universal.Negativity;
+import com.elikill58.negativity.universal.bedrock.BedrockPlayerManager;
 import com.elikill58.negativity.universal.utils.SemVer;
 
 import io.netty.channel.Channel;
@@ -32,6 +34,10 @@ public class PacketListeners extends NettyPacketListener implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
+		if (Negativity.disabledJava && !BedrockPlayerManager.isBedrockPlayer(p.getUniqueId()))
+			return;
+		if (Negativity.disabledBedrock && BedrockPlayerManager.isBedrockPlayer(p.getUniqueId()))
+			return;
 		if(p.hasMetadata("NPC"))
 			return;
 		join(SpigotEntityManager.getPlayer(p));

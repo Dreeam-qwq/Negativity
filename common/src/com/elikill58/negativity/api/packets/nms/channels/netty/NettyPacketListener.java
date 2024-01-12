@@ -8,7 +8,9 @@ import com.elikill58.negativity.api.NegativityPlayer;
 import com.elikill58.negativity.api.entity.Player;
 import com.elikill58.negativity.api.packets.PacketDirection;
 import com.elikill58.negativity.universal.Adapter;
+import com.elikill58.negativity.universal.Negativity;
 import com.elikill58.negativity.universal.Version;
+import com.elikill58.negativity.universal.bedrock.BedrockPlayerManager;
 import com.elikill58.negativity.universal.multiVersion.PlayerVersionManager;
 
 import io.netty.channel.Channel;
@@ -43,6 +45,10 @@ public abstract class NettyPacketListener {
 	}
 
 	protected void addChannel(Player p) {
+		if (Negativity.disabledJava && !BedrockPlayerManager.isBedrockPlayer(p.getUniqueId()))
+			return;
+		if (Negativity.disabledBedrock && BedrockPlayerManager.isBedrockPlayer(p.getUniqueId()))
+			return;
 		Adapter ada = Adapter.getAdapter();
 		Version version = ada.getServerVersion(); // now it seems ViaVersion do thing before us
 		if(version.equals(Version.HIGHER) || version.equals(Version.LOWER)) {

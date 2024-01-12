@@ -33,6 +33,8 @@ import com.elikill58.negativity.spigot.impl.item.SpigotItemStack;
 import com.elikill58.negativity.spigot.impl.location.SpigotLocation;
 import com.elikill58.negativity.spigot.impl.location.SpigotWorld;
 import com.elikill58.negativity.universal.Adapter;
+import com.elikill58.negativity.universal.Negativity;
+import com.elikill58.negativity.universal.bedrock.BedrockPlayerManager;
 
 public class PlayersListeners implements Listener {
 	
@@ -40,6 +42,10 @@ public class PlayersListeners implements Listener {
 	public void onQuit(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		if(p.hasMetadata("NPC"))
+			return;
+		if (Negativity.disabledJava && !BedrockPlayerManager.isBedrockPlayer(e.getPlayer().getUniqueId()))
+			return;
+		if (Negativity.disabledBedrock && BedrockPlayerManager.isBedrockPlayer(e.getPlayer().getUniqueId()))
 			return;
 		NegativityPlayer np = NegativityPlayer.getNegativityPlayer(p.getUniqueId(), () -> new SpigotPlayer(p));
 		PlayerLeaveEvent event = new PlayerLeaveEvent(np.getPlayer(), np, e.getQuitMessage());
@@ -52,19 +58,32 @@ public class PlayersListeners implements Listener {
 	public void onDamageByEntity(EntityDamageByEntityEvent e) {
 		if(e.getEntity().hasMetadata("NPC"))
 			return;
-		if(e.getEntity() instanceof Player)
+		if (e.getEntity() instanceof Player) {
+			if (Negativity.disabledJava && !BedrockPlayerManager.isBedrockPlayer(e.getEntity().getUniqueId()))
+				return;
+			if (Negativity.disabledBedrock && BedrockPlayerManager.isBedrockPlayer(e.getEntity().getUniqueId()))
+				return;
 			EventManager.callEvent(new PlayerDamagedByEntityEvent(SpigotEntityManager.getPlayer((Player) e.getEntity()), SpigotEntityManager.getEntity(e.getDamager())));
+		}
 	}
 	
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
 		if(e.getEntity().hasMetadata("NPC"))
 			return;
+		if (Negativity.disabledJava && !BedrockPlayerManager.isBedrockPlayer(e.getEntity().getUniqueId()))
+			return;
+		if (Negativity.disabledBedrock && BedrockPlayerManager.isBedrockPlayer(e.getEntity().getUniqueId()))
+			return;
 		EventManager.callEvent(new com.elikill58.negativity.api.events.player.PlayerDeathEvent(SpigotEntityManager.getPlayer(e.getEntity())));
 	}
 	
 	@EventHandler
 	public void onInteract(org.bukkit.event.player.PlayerInteractEvent e) {
+		if (Negativity.disabledJava && !BedrockPlayerManager.isBedrockPlayer(e.getPlayer().getUniqueId()))
+			return;
+		if (Negativity.disabledBedrock && BedrockPlayerManager.isBedrockPlayer(e.getPlayer().getUniqueId()))
+			return;
 		PlayerInteractEvent event = new PlayerInteractEvent(SpigotEntityManager.getPlayer(e.getPlayer()), Action.valueOf(e.getAction().name()));
 		EventManager.callEvent(event);
 		if(event.isCancelled())
@@ -73,18 +92,30 @@ public class PlayersListeners implements Listener {
 	
 	@EventHandler
 	public void onChangeWorld(PlayerChangedWorldEvent e) {
+		if (Negativity.disabledJava && !BedrockPlayerManager.isBedrockPlayer(e.getPlayer().getUniqueId()))
+			return;
+		if (Negativity.disabledBedrock && BedrockPlayerManager.isBedrockPlayer(e.getPlayer().getUniqueId()))
+			return;
 		org.bukkit.World old = e.getPlayer().getWorld();
 		EventManager.callEvent(new PlayerChangeWorldEvent(SpigotEntityManager.getPlayer(e.getPlayer()), World.getWorld(old.getName(), (a) -> new SpigotWorld(old))));
 	}
 	
 	@EventHandler
 	public void onItemConsume(PlayerItemConsumeEvent e) {
+		if (Negativity.disabledJava && !BedrockPlayerManager.isBedrockPlayer(e.getPlayer().getUniqueId()))
+			return;
+		if (Negativity.disabledBedrock && BedrockPlayerManager.isBedrockPlayer(e.getPlayer().getUniqueId()))
+			return;
 		EventManager.callEvent(new com.elikill58.negativity.api.events.player.PlayerItemConsumeEvent(SpigotEntityManager.getPlayer(e.getPlayer()), new SpigotItemStack(e.getItem())));
 	}
 	
 	@EventHandler
 	public void onRegainHealth(EntityRegainHealthEvent e) {
 		if(e.getEntity() instanceof Player && !e.getEntity().hasMetadata("NPC") && (e.getRegainReason().equals(RegainReason.EATING) || e.getRegainReason().equals(RegainReason.SATIATED))) {
+			if (Negativity.disabledJava && !BedrockPlayerManager.isBedrockPlayer(e.getEntity().getUniqueId()))
+				return;
+			if (Negativity.disabledBedrock && BedrockPlayerManager.isBedrockPlayer(e.getEntity().getUniqueId()))
+				return;
 			PlayerRegainHealthEvent event = new PlayerRegainHealthEvent(SpigotEntityManager.getPlayer((Player) e.getEntity()));
 			EventManager.callEvent(event);
 			if(event.isCancelled())
@@ -94,6 +125,10 @@ public class PlayersListeners implements Listener {
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPreLogin(AsyncPlayerPreLoginEvent e) {
+		if (Negativity.disabledJava && !BedrockPlayerManager.isBedrockPlayer(e.getUniqueId()))
+			return;
+		if (Negativity.disabledBedrock && BedrockPlayerManager.isBedrockPlayer(e.getUniqueId()))
+			return;
 		LoginEvent event = new LoginEvent(e.getUniqueId(), e.getName(), Result.valueOf(e.getLoginResult().name()), e.getAddress(), e.getKickMessage());
 		EventManager.callEvent(event);
 		e.setKickMessage(event.getKickMessage());
@@ -104,6 +139,10 @@ public class PlayersListeners implements Listener {
 	public void onTeleport(org.bukkit.event.player.PlayerTeleportEvent e) {
 		if(e.getPlayer().hasMetadata("NPC"))
 			return;
+		if (Negativity.disabledJava && !BedrockPlayerManager.isBedrockPlayer(e.getPlayer().getUniqueId()))
+			return;
+		if (Negativity.disabledBedrock && BedrockPlayerManager.isBedrockPlayer(e.getPlayer().getUniqueId()))
+			return;
 		com.elikill58.negativity.api.entity.Player p = SpigotEntityManager.getPlayer(e.getPlayer());
 		EventManager.callEvent(new PlayerTeleportEvent(p, SpigotLocation.toCommon(e.getFrom(), p), SpigotLocation.toCommon(e.getTo(), p)));
 	}
@@ -112,6 +151,10 @@ public class PlayersListeners implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		if(p.hasMetadata("NPC"))
+			return;
+		if (Negativity.disabledJava && !BedrockPlayerManager.isBedrockPlayer(p.getUniqueId()))
+			return;
+		if (Negativity.disabledBedrock && BedrockPlayerManager.isBedrockPlayer(p.getUniqueId()))
 			return;
 		NegativityPlayer np = NegativityPlayer.getNegativityPlayer(p.getUniqueId(), () -> new SpigotPlayer(p));
 		PlayerConnectEvent event = new PlayerConnectEvent(np.getPlayer(), np, e.getJoinMessage());

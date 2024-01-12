@@ -15,11 +15,17 @@ import com.elikill58.negativity.api.item.ItemStack;
 import com.elikill58.negativity.spigot.impl.entity.SpigotEntityManager;
 import com.elikill58.negativity.spigot.impl.inventory.SpigotInventory;
 import com.elikill58.negativity.spigot.impl.item.SpigotItemStack;
+import com.elikill58.negativity.universal.Negativity;
+import com.elikill58.negativity.universal.bedrock.BedrockPlayerManager;
 
 public class InventoryListeners implements Listener {
 	
 	@EventHandler
 	public void onInventoryOpen(org.bukkit.event.inventory.InventoryOpenEvent e) {
+		if (Negativity.disabledJava && !BedrockPlayerManager.isBedrockPlayer(e.getPlayer().getUniqueId()))
+			return;
+		if (Negativity.disabledBedrock && BedrockPlayerManager.isBedrockPlayer(e.getPlayer().getUniqueId()))
+			return;
 		if(e.isCancelled())
 			return;
 		InventoryOpenEvent event = new InventoryOpenEvent(SpigotEntityManager.getPlayer((Player) e.getPlayer()));
@@ -31,6 +37,10 @@ public class InventoryListeners implements Listener {
 	@EventHandler
 	public void onInventoryClick(org.bukkit.event.inventory.InventoryClickEvent e) {
 		if(!(e.getWhoClicked() instanceof Player) || e.getClickedInventory() == null || e.getCurrentItem() == null || e.getSlotType().equals(SlotType.QUICKBAR))
+			return;
+		if (Negativity.disabledJava && !BedrockPlayerManager.isBedrockPlayer(e.getWhoClicked().getUniqueId()))
+			return;
+		if (Negativity.disabledBedrock && BedrockPlayerManager.isBedrockPlayer(e.getWhoClicked().getUniqueId()))
 			return;
 		com.elikill58.negativity.api.entity.Player p = SpigotEntityManager.getPlayer((Player) e.getWhoClicked());
 		InventoryAction action = getAction(e.getClick());
@@ -72,6 +82,10 @@ public class InventoryListeners implements Listener {
 	
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
+		if (Negativity.disabledJava && !BedrockPlayerManager.isBedrockPlayer(e.getPlayer().getUniqueId()))
+			return;
+		if (Negativity.disabledBedrock && BedrockPlayerManager.isBedrockPlayer(e.getPlayer().getUniqueId()))
+			return;
 		com.elikill58.negativity.api.entity.Player p = SpigotEntityManager.getPlayer((Player) e.getPlayer());
 		EventManager.callEvent(new com.elikill58.negativity.api.events.inventory.InventoryCloseEvent(p, new SpigotInventory(e.getInventory())));
 	}

@@ -190,15 +190,15 @@ public class NegativityPlayer {
 	 * @return true if the player can be detected
 	 */
 	public boolean hasDetectionActive(Cheat c) {
+		if (c.isDisabledForJava() && !BedrockPlayerManager.isBedrockPlayer(getUUID()))
+			return false;
+		if (c.isDisabledForBedrock() && BedrockPlayerManager.isBedrockPlayer(getUUID()))
+			return false;
 		if(!canBeCheck())
 			return false;
 		if (!c.isActive())
 			return false;
 		if (isInFight && c.hasOption(CheatDescription.NO_FIGHT))
-			return false;
-		if (c.isDisabledForBedrock() && BedrockPlayerManager.isBedrockPlayer(getUUID()))
-			return false;
-		if (c.isDisabledForJava() && !BedrockPlayerManager.isBedrockPlayer(getUUID()))
 			return false;
 		if(Negativity.hasBypass && (Perm.hasPerm(this, "bypass." + c.getKey().getLowerKey())))
 			return false;
