@@ -5,20 +5,24 @@ sourceSets {
         java.srcDirs = ['src8']
         resources.srcDirs = ['resources']
     }
+    /*
     java11 {
         java.srcDirs = ['src11']
     }
+     */
 }
 
+/*
 configurations {
     java11CompileClasspath.extendsFrom compileClasspath
 }
+ */
 
 dependencies {
     api(project(':spigot'))
     compileOnly(project(path: ':spigot', configuration: 'spigot'))
 
-    java11CompileOnly 'me.coralise:custombansplus:3.4.1' // Dreeam TODO - need bump to 3.6?
+    //java11CompileOnly 'me.coralise:custombansplus:3.4.1' // Dreeam TODO - need bump to 3.6?
 
 }
 
@@ -28,6 +32,7 @@ compileJava {
     )
 }
 
+/*
 compileJava11Java {
     javaCompiler.set(
             javaToolchains.compilerFor { languageVersion = JavaLanguageVersion.of(11) }
@@ -39,3 +44,4 @@ tasks.jar {
         exclude "previous-compilation-data.bin"
     }
 }
+ */
