@@ -77,10 +77,13 @@ subprojects {
         compileOnly 'io.netty:netty-all:4.1.106.Final'
     }
 
-    java.toolchain.languageVersion = JavaLanguageVersion.of(8)
-
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
+    }
+
+    configure(JavaPluginExtension) {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     tasks.withType(Javadoc) {
@@ -94,7 +97,7 @@ subprojects {
             if (project.name != 'common') {
                 links '../common'
             }
-            links "https://docs.oracle.com/javase/${java.toolchain.languageVersion.get().asInt()}/docs/api/"
+            links "https://docs.oracle.com/javase/8/docs/api/"
         }
     }
 

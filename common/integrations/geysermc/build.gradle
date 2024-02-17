@@ -28,12 +28,6 @@ dependencies {
     api(project(':common'))
 }
 
-compileJava {
-    javaCompiler.set(
-            javaToolchains.compilerFor { languageVersion = JavaLanguageVersion.of(8) }
-    )
-}
-
 compileJava17Java {
     javaCompiler.set(
             javaToolchains.compilerFor { languageVersion = JavaLanguageVersion.of(17) }

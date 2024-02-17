@@ -28,8 +28,6 @@ repositories {
     }
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(8)
-
 configurations {
     spigot
     compileClasspath.extendsFrom spigot
@@ -49,10 +47,6 @@ processResources {
         expand(props)
     }
 }
-
-compileJava.javaCompiler.set(
-        javaToolchains.compilerFor { languageVersion = JavaLanguageVersion.of(8) }
-)
 
 shadowJar {
     archiveBaseName.set('NegativitySpigot')
@@ -90,8 +84,6 @@ task prepareServer(type: Copy) {
 }
 
 subprojects {
-    java.toolchain.languageVersion = JavaLanguageVersion.of(8)
-    
     repositories {
 	    maven {
 	        name 'sonatype'

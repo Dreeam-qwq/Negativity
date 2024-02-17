@@ -25,7 +25,8 @@ dependencies {
 }
 
 compileJava {
-    javaCompiler.set(
-            javaToolchains.compilerFor { languageVersion = JavaLanguageVersion.of(17) }
-    )
+    configure(JavaPluginExtension) {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 }
