@@ -18,7 +18,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 dependencies {
     api project(':common')
     compileOnly 'com.github.Minestom:Minestom:954e8b3915'
-    compileOnly 'io.netty:netty-all:4.1.106.Final'
+    compileOnly 'io.netty:netty-all:4.1.107.Final'
 }
 
 compileJava.javaCompiler.set(
